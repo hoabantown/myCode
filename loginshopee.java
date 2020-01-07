@@ -46,6 +46,7 @@ public class ToolController
     public String getA(Model model) throws IOException, InterruptedException {
         RestTemplate restTemplate = new RestTemplate();
 
+        //get cookie
         HttpEntity<String> loginPage = restTemplate.exchange(
                 "https://shopee.vn/api/v0/buyer/login/",
                 HttpMethod.GET, null, String.class);
@@ -74,12 +75,14 @@ public class ToolController
 
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
 
-        ResponseEntity<String> product = restTemplate.exchange(
+        //send request
+        ResponseEntity<String> respone = restTemplate.exchange(
                 "https://shopee.vn/api/v0/buyer/login/login_post/",
                 HttpMethod.POST, entity, String.class);
 
-        System.out.println(product.toString());
+        System.out.println(respone.toString());
 
+        //check after login
         HttpEntity<String> test = restTemplate.exchange(
                 "https://banhang.shopee.vn/api/v1/login/﻿",
                 HttpMethod.GET, null, String.class);
